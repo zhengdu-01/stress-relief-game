@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>解压小游戏 - 星露谷风格</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #87CEEB 0%, #98D8C8 100%);
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .game-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+            background: linear-gradient(to bottom, #D4C4A8 0%, #C9B896 100%);
+        }
+
+        /* 办公室背景 */
+        .office-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .wall {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to bottom, #E8D8C8, #D8C8B8);
+        }
+
+        .window {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 120px;
+            height: 150px;
+            background: linear-gradient(to bottom, #87CEEB, #98D8C8);
+            border: 12px solid #8B7355;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .window::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 8px;
+            height: 100%;
+            background: #8B7355;
+            transform: translateX(-50%);
+        }
+
+        .window::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: #8B7355;
+            transform: translateY(-50%);
+        }
+
+        .certificate {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 80px;
+            height: 100px;
+            background: #FFF8DC;
+            border: 6px solid #DEB887;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            font-size: 10px;
+            color: #8B4513;
+        }
+
+        .certificate::before {
+            content: '🏆';
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+
+        .desk {
+            position: absolute;
+            bottom: 25%;
+            width: 100%;
+            height: 25%;
+            background: linear-gradient(to bottom, #8B7355, #6B5344);
+            border-top: 12px solid #9B8365;
+        }
+
+        .cabinet {
+            position: absolute;
+            left: 30px;
+            bottom: 30%;
+            width: 70px;
+            height: 90px;
+            background: #6B5344;
+            border-radius: 4px;
+        }
+
+        .drawer {
+            height: 28px;
+            background: #5B4334;
+            margin: 2px;
+            border-radius: 2px;
+            position: relative;
+        }
+
+        .drawer::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 8px;
+            background: #8B7355;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .computer {
+            position: absolute;
+            right: 40px;
+            bottom: 30%;
+            width: 90px;
+            height: 70px;
+        }
+
+        .monitor {
+            width: 100%;
+            height: 50px;
+            background: #2F2F2F;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .screen {
+            width: 80%;
+            height: 80%;
+            background: linear-gradient(to bottom, #4A90E2, #5C9CE6);
+            border-radius: 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 6px;
+            color: white;
+        }
+
+        .stand {
+            width: 20px;
+            height: 15px;
+            background: #3F3F3F;
+            margin: 0 auto;
+        }
+
+        .base {
+            width: 50px;
+            height: 5px;
+            background: #3F3F3F;
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        /* 顶部UI */
+        .top-ui {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .info-panel {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .timer {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .timer.warning {
+            color: #E74C3C;
+            animation: pulse 0.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .boss-name {
+            font-size: 14px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .hp-panel {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 16px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .hp-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .hp-bar {
+            width: 120px;
+            height: 16px;
+            background: #E0E0E0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .hp-fill {
+            height: 100%;
+            background: linear-gradient(to right, #E74C3C, #C0392B);
+            transition: width 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .hp-text {
+            font-size: 12px;
+            color: #333;
+            margin-top: 4px;
+            text-align: right;
+        }
+
+        /* 领导角色 */
+        .boss-area {
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
+
+        .boss-character {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .boss-character:active {
+            transform: scale(0.95);
+        }
+
+        .boss-character.shake {
+            animation: shake 0.2s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .boss-body {
+            width: 120px;
+            height: 100px;
+            background: #2C3E50;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .suit {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: #34495E;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .tie {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 40px;
+            background: #C0392B;
+            border-radius: 2px;
+        }
+
+        .head {
+            width: 80px;
+            height: 80px;
+            background: #FDEBD0;
+            border-radius: 8px;
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            overflow: visible;
+        }
+
+        .hair {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85px;
+            height: 25px;
+            background: #2C1810;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .female-hair {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90px;
+            height: 35px;
+            background: #3D2314;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .female-hair::before,
+        .female-hair::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            width: 15px;
+            height: 35px;
+            background: #3D2314;
+            border-radius: 8px;
+        }
+
+        .female-hair::before { left: 5px; }
+        .female-hair::after { right: 5px; }
+
+        .glasses {
+            position: absolute;
+            top: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+        }
+
+        .lens {
+            width: 22px;
+            height: 18px;
+            border: 3px solid #2C3E50;
+            border-radius: 4px;
+        }
+
+        .eyes {
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+
+        .eye {
+            width: 8px;
+            height: 8px;
+            background: #2C3E50;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .eye.angry {
+            height: 12px;
+            border-radius: 4px;
+        }
+
+        .eye.sad {
+            width: 6px;
+            height: 6px;
+        }
+
+        .mouth {
+            position: absolute;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 12px;
+            border: 3px solid #2C3E50;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            transition: all 0.3s;
+        }
+
+        .mouth.angry {
+            border: 3px solid #2C3E50;
+            border-bottom: none;
+            border-radius: 12px 12px 0 0;
+            bottom: 15px;
+        }
+
+        .mouth.sad {
+            width: 18px;
+            height: 8px;
+            border: 3px solid #2C3E50;
+            border-bottom: none;
+            border-radius: 12px 12px 0 0;
+            bottom: 15px;
+        }
+
+        .mouth.beg {
+            width: 30px;
+            height: 15px;
+            background: #2C3E50;
+            border: none;
+            border-radius: 50%;
+        }
+
+        /* 眩晕效果 */
+        .stun-stars {
+            position: absolute;
+            top: -80px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .stun-star {
+            font-size: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        .stun-star:nth-child(2) { animation-delay: 0.33s; }
+        .stun-star:nth-child(3) { animation-delay: 0.66s; }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 怒气槽 */
+        .rage-ui {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .rage-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .rage-bar {
+            width: 200px;
+            height: 20px;
+            background: #E0E0E0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .rage-fill {
+            height: 100%;
+            background: linear-gradient(to right, #F39C12, #E67E22);
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+
+        /* 武器卡牌 */
+        .weapon-card {
+            position: absolute;
+            top: 90px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            background: #FFF8DC;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            cursor: grab;
+            touch-action: none;
+            animation: cardAppear 0.3s ease-out;
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0) scale(1);
+            }
+        }
+
+        .weapon-card:active {
+            cursor: grabbing;
+        }
+
+        .weapon-icon {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .weapon-name {
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+        }
+
+        .weapon-rarity {
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .weapon-rarity.common { background: #E8E8E8; color: #666; }
+        .weapon-rarity.special { background: #3498DB; color: white; }
+        .weapon-rarity.legendary { background: #F39C12; color: white; }
+
+        .weapon-damage {
+            font-size: 12px;
+            color: #E74C3C;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        /* 击中效果 */
+        .hit-effect {
+            position: fixed;
+            font-size: 60px;
+            pointer-events: none;
+            z-index: 100;
+            animation: hitBurst 0.3s ease-out forwards;
+        }
+
+        @keyframes hitBurst {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0.5);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.5);
+            }
+        }
+
+        /* 开始界面 */
+        .setup-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 50;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .setup-panel {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .setup-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2C3E50;
+            margin-bottom: 20px;
+        }
+
+        .gender-select {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .gender-btn {
+            padding: 12px 24px;
+            border: 3px solid #3498DB;
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+        }
+
+        .gender-btn.active {
+            background: #3498DB;
+            color: white;
+        }
+
+        .name-input {
+            width: 100%;
+            padding: 12px;
+            border: 3px solid #3498DB;
+            border-radius: 8px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .start-btn {
+            background: linear-gradient(to bottom, #E74C3C, #C0392B);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            box-shadow: 0 6px 0 #96281B;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .start-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #96281B;
+        }
+
+        /* 结果界面 */
+        .result-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 50;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .result-panel {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .result-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .result-title.victory {
+            color: #27AE60;
+        }
+
+        .result-title.defeat {
+            color: #E74C3C;
+        }
+
+        .result-message {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .restart-btn {
+            background: linear-gradient(to bottom, #27AE60, #1E8449);
+            color: white;
+            border: none;
+            padding: 16px 40px;
+            font-size: 20px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #145A32;
+            transition: transform 0.2s;
+        }
+
+        .restart-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .restart-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 #145A32;
+        }
+
+        /* 提示文字 */
+        .hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
+        }
+
+        /* 老板名称 */
+        .mood-text {
+            font-size: 12px;
+            color: #E74C3C;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container" id="game">
+        <!-- 办公室背景 -->
+        <div class="office-background">
+            <div class="wall"></div>
+            <div class="window"></div>
+            <div class="certificate">优秀领导</div>
+            <div class="desk"></div>
+            <div class="cabinet">
+                <div class="drawer"></div>
+                <div class="drawer"></div>
+                <div class="drawer"></div>
+            </div>
+            <div class="computer">
+                <div class="monitor">
+                    <div class="screen">
+                        <div>报表.xlsx</div>
+                        <div>✓ 发送成功</div>
+                    </div>
+                </div>
+                <div class="stand"></div>
+                <div class="base"></div>
+            </div>
+        </div>
+
+        <!-- 顶部UI -->
+        <div class="top-ui" id="gameUI" style="display: none;">
+            <div class="info-panel">
+                <div class="timer" id="timer">60s</div>
+                <div class="boss-name" id="bossName">张总</div>
+                <div class="mood-text" id="moodText">傲慢</div>
+            </div>
+            <div class="hp-panel">
+                <div class="hp-label">血量</div>
+                <div class="hp-bar">
+                    <div class="hp-fill" id="hpFill" style="width: 100%;"></div>
+                </div>
+                <div class="hp-text" id="hpText">100/100</div>
+            </div>
+        </div>
+
+        <!-- 领导角色 -->
+        <div class="boss-area" id="bossArea" style="display: none;">
+            <div class="boss-character" id="bossCharacter">
+                <div class="stun-stars" id="stunStars" style="display: none;">
+                    <span class="stun-star">⭐</span>
+                    <span class="stun-star">⭐</span>
+                    <span class="stun-star">⭐</span>
+                </div>
+                <div class="head" id="head">
+                    <div class="hair" id="hair"></div>
+                    <div class="glasses">
+                        <div class="lens"></div>
+                        <div class="lens"></div>
+                    </div>
+                    <div class="eyes" id="eyes">
+                        <div class="eye" id="leftEye"></div>
+                        <div class="eye" id="rightEye"></div>
+                    </div>
+                    <div class="mouth" id="mouth"></div>
+                </div>
+                <div class="boss-body">
+                    <div class="suit">
+                        <div class="tie" id="tie"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 怒气槽 -->
+        <div class="rage-ui" id="rageUI" style="display: none;">
+            <div class="rage-label">怒气值</div>
+            <div class="rage-bar">
+                <div class="rage-fill" id="rageFill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- 武器卡牌 -->
+        <div class="weapon-card" id="weaponCard" style="display: none;"></div>
+
+        <!-- 开始界面 -->
+        <div class="setup-screen" id="setupScreen">
+            <div class="setup-panel">
+                <div class="setup-title">🎮 解压小游戏</div>
+                <div class="gender-select">
+                    <button class="gender-btn active" data-gender="male" onclick="selectGender('male')">👨 男领导</button>
+                    <button class="gender-btn" data-gender="female" onclick="selectGender('female')">👩 女领导</button>
+                </div>
+                <input type="text" class="name-input" id="bossNameInput" placeholder="输入领导名字" value="张总">
+                <button class="start-btn" onclick="startGame()">开始游戏</button>
+                <div class="hint">点击领导进行攻击，怒气满时拖拽武器卡牌释放必杀技！</div>
+            </div>
+        </div>
+
+        <!-- 结果界面 -->
+        <div class="result-screen" id="resultScreen" style="display: none;">
+            <div class="result-panel">
+                <div class="result-title" id="resultTitle">🎉 胜利！</div>
+                <div class="result-message" id="resultMessage">成功让张总服输了！</div>
+                <button class="restart-btn" onclick="restartGame()">再来一局</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 游戏状态
+        const gameState = {
+            bossName: '张总',
+            isMale: true,
+            bossHP: 100,
+            maxHP: 100,
+            rage: 0,
+            maxRage: 100,
+            timeRemaining: 60,
+            gameStarted: false,
+            gameEnded: false,
+            victory: false,
+            bossMood: 'arrogant',
+            isStunned: false,
+            timerInterval: null,
+            weapon: null,
+            isDragging: false,
+            dragOffset: { x: 0, y: 0 }
+        };
+
+        // 武器数据
+        const weapons = [
+            { type: 'rottenVegetable', name: '烂菜叶', icon: '🥬', damage: [10, 15], rarity: 'common' },
+            { type: 'stinkyEgg', name: '臭鸡蛋', icon: '🥚', damage: [10, 15], rarity: 'common' },
+            { type: 'kitchenKnife', name: '菜刀', icon: '🔪', damage: [30, 30], rarity: 'special' },
+            { type: 'tiffany', name: 'Tiffany饰品', icon: '💎', damage: [50, 50], rarity: 'legendary' }
+        ];
+
+        // 选择性别
+        function selectGender(gender) {
+            gameState.isMale = gender === 'male';
+            document.querySelectorAll('.gender-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.gender === gender) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // 更新头发样式
+            const hair = document.getElementById('hair');
+            if (gameState.isMale) {
+                hair.className = 'hair';
+                hair.innerHTML = '';
+            } else {
+                hair.className = 'female-hair';
+                hair.innerHTML = '';
+            }
+
+            // 更新领带
+            const tie = document.getElementById('tie');
+            tie.style.display = gameState.isMale ? 'block' : 'none';
+        }
+
+        // 开始游戏
+        function startGame() {
+            const inputName = document.getElementById('bossNameInput').value.trim();
+            if (inputName) {
+                gameState.bossName = inputName;
+            }
+
+            // 初始化游戏状态
+            gameState.bossHP = gameState.maxHP;
+            gameState.rage = 0;
+            gameState.timeRemaining = 60;
+            gameState.gameStarted = true;
+            gameState.gameEnded = false;
+            gameState.victory = false;
+            gameState.bossMood = 'arrogant';
+            gameState.isStunned = false;
+
+            // 更新UI
+            document.getElementById('bossName').textContent = gameState.bossName;
+            updateUI();
+
+            // 隐藏开始界面，显示游戏界面
+            document.getElementById('setupScreen').style.display = 'none';
+            document.getElementById('gameUI').style.display = 'flex';
+            document.getElementById('bossArea').style.display = 'block';
+            document.getElementById('rageUI').style.display = 'block';
+
+            // 开始计时
+            startTimer();
+
+            // 绑定攻击事件
+            bindAttackEvents();
+        }
+
+        // 开始计时器
+        function startTimer() {
+            gameState.timerInterval = setInterval(() => {
+                if (!gameState.gameEnded && gameState.timeRemaining > 0) {
+                    gameState.timeRemaining--;
+                    updateUI();
+
+                    if (gameState.timeRemaining <= 0) {
+                        endGame(false);
+                    }
+                }
+            }, 1000);
+        }
+
+        // 更新UI
+        function updateUI() {
+            // 计时器
+            const timerEl = document.getElementById('timer');
+            timerEl.textContent = gameState.timeRemaining + 's';
+            timerEl.classList.toggle('warning', gameState.timeRemaining <= 10);
+
+            // 血量
+            const hpPercent = (gameState.bossHP / gameState.maxHP) * 100;
+            document.getElementById('hpFill').style.width = hpPercent + '%';
+            document.getElementById('hpText').textContent = gameState.bossHP + '/' + gameState.maxHP;
+
+            // 怒气
+            const ragePercent = (gameState.rage / gameState.maxRage) * 100;
+            document.getElementById('rageFill').style.width = ragePercent + '%';
+
+            // 表情
+            document.getElementById('moodText').textContent = getMoodText();
+            updateMood();
+        }
+
+        // 获取表情文字
+        function getMoodText() {
+            switch (gameState.bossMood) {
+                case 'arrogant': return '傲慢';
+                case 'angry': return '愤怒';
+                case 'sad': return '委屈';
+                case 'beg': return '求饶';
+                default: return '傲慢';
+            }
+        }
+
+        // 更新表情
+        function updateMood() {
+            const leftEye = document.getElementById('leftEye');
+            const rightEye = document.getElementById('rightEye');
+            const mouth = document.getElementById('mouth');
+
+            // 重置样式
+            leftEye.className = 'eye';
+            rightEye.className = 'eye';
+            mouth.className = 'mouth';
+
+            switch (gameState.bossMood) {
+                case 'angry':
+                    leftEye.classList.add('angry');
+                    rightEye.classList.add('angry');
+                    mouth.classList.add('angry');
+                    break;
+                case 'sad':
+                    leftEye.classList.add('sad');
+                    rightEye.classList.add('sad');
+                    mouth.classList.add('sad');
+                    break;
+                case 'beg':
+                    mouth.classList.add('beg');
+                    break;
+            }
+        }
+
+        // 绑定攻击事件
+        function bindAttackEvents() {
+            const boss = document.getElementById('bossCharacter');
+
+            // 点击攻击
+            boss.addEventListener('click', handleNormalAttack);
+            boss.addEventListener('touchend', function(e) {
+                e.preventDefault();
+                handleNormalAttack(e);
+            });
+        }
+
+        // 普通攻击
+        function handleNormalAttack(e) {
+            if (!gameState.gameStarted || gameState.gameEnded || gameState.isStunned) return;
+
+            const damage = 5;
+            gameState.bossHP = Math.max(0, gameState.bossHP - damage);
+            gameState.rage = Math.min(gameState.maxRage, gameState.rage + 10);
+
+            // 显示击中效果
+            showHitEffect(e);
+
+            // 震动效果
+            const boss = document.getElementById('bossCharacter');
+            boss.classList.add('shake');
+            setTimeout(() => boss.classList.remove('shake'), 200);
+
+            // 更新表情
+            updateBossMood();
+
+            // 检查是否胜利
+            if (gameState.bossHP <= 0) {
+                endGame(true);
+                return;
+            }
+
+            // 检查是否生成武器卡牌
+            if (gameState.rage >= gameState.maxRage) {
+                spawnWeaponCard();
+            }
+
+            updateUI();
+        }
+
+        // 显示击中效果
+        function showHitEffect(e) {
+            const hit = document.createElement('div');
+            hit.className = 'hit-effect';
+            hit.textContent = '💥';
+
+            const rect = e.target.getBoundingClientRect();
+            hit.style.left = (rect.left + rect.width / 2) + 'px';
+            hit.style.top = (rect.top + rect.height / 2) + 'px';
+
+            document.body.appendChild(hit);
+
+            setTimeout(() => hit.remove(), 300);
+        }
+
+        // 更新领导表情
+        function updateBossMood() {
+            const hpPercent = gameState.bossHP / gameState.maxHP;
+
+            if (hpPercent > 0.75) {
+                gameState.bossMood = 'arrogant';
+            } else if (hpPercent > 0.5) {
+                gameState.bossMood = 'angry';
+            } else if (hpPercent > 0.25) {
+                gameState.bossMood = 'sad';
+            } else {
+                gameState.bossMood = 'beg';
+            }
+        }
+
+        // 生成武器卡牌
+        function spawnWeaponCard() {
+            // 随机选择武器
+            const randomIndex = Math.floor(Math.random() * weapons.length);
+            gameState.weapon = weapons[randomIndex];
+
+            const weaponCard = document.getElementById('weaponCard');
+            weaponCard.innerHTML = `
+                <div class="weapon-icon">${gameState.weapon.icon}</div>
+                <div class="weapon-name">${gameState.weapon.name}</div>
+                <div class="weapon-rarity ${gameState.weapon.rarity}">${getRarityText(gameState.weapon.rarity)}</div>
+                <div class="weapon-damage">伤害: ${gameState.weapon.damage[0]}</div>
+            `;
+
+            weaponCard.style.display = 'block';
+            weaponCard.style.animation = 'none';
+            weaponCard.offsetHeight; // 触发重排
+            weaponCard.style.animation = 'cardAppear 0.3s ease-out';
+
+            // 绑定拖拽事件
+            bindDragEvents();
+        }
+
+        // 获取稀有度文字
+        function getRarityText(rarity) {
+            switch (rarity) {
+                case 'common': return '基础';
+                case 'special': return '特殊';
+                case 'legendary': return '传奇';
+                default: return '基础';
+            }
+        }
+
+        // 绑定拖拽事件
+        function bindDragEvents() {
+            const weaponCard = document.getElementById('weaponCard');
+            const boss = document.getElementById('bossCharacter');
+
+            let isDragging = false;
+            let startX, startY, initialX, initialY;
+
+            // 鼠标事件
+            weaponCard.addEventListener('mousedown', startDrag);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', endDrag);
+
+            // 触摸事件
+            weaponCard.addEventListener('touchstart', startDrag, { passive: false });
+            document.addEventListener('touchmove', drag, { passive: false });
+            document.addEventListener('touchend', endDrag);
+
+            function startDrag(e) {
+                if (gameState.gameEnded) return;
+
+                isDragging = true;
+                weaponCard.style.cursor = 'grabbing';
+
+                const rect = weaponCard.getBoundingClientRect();
+                initialX = rect.left;
+                initialY = rect.top;
+
+                if (e.type === 'touchstart') {
+                    startX = e.touches[0].clientX;
+                    startY = e.touches[0].clientY;
+                } else {
+                    startX = e.clientX;
+                    startY = e.clientY;
+                }
+
+                e.preventDefault();
+            }
+
+            function drag(e) {
+                if (!isDragging) return;
+
+                let currentX, currentY;
+                if (e.type === 'touchmove') {
+                    currentX = e.touches[0].clientX;
+                    currentY = e.touches[0].clientY;
+                    e.preventDefault();
+                } else {
+                    currentX = e.clientX;
+                    currentY = e.clientY;
+                }
+
+                const deltaX = currentX - startX;
+                const deltaY = currentY - startY;
+
+                weaponCard.style.position = 'fixed';
+                weaponCard.style.left = (initialX + deltaX) + 'px';
+                weaponCard.style.top = (initialY + deltaY) + 'px';
+                weaponCard.style.transform = 'none';
+            }
+
+            function endDrag(e) {
+                if (!isDragging) return;
+
+                isDragging = false;
+                weaponCard.style.cursor = 'grab';
+
+                // 检查是否拖到领导身上
+                const weaponRect = weaponCard.getBoundingClientRect();
+                const bossRect = boss.getBoundingClientRect();
+
+                const weaponCenterX = weaponRect.left + weaponRect.width / 2;
+                const weaponCenterY = weaponRect.top + weaponRect.height / 2;
+
+                // 检查是否在boss范围内
+                if (weaponCenterX >= bossRect.left && weaponCenterX <= bossRect.right &&
+                    weaponCenterY >= bossRect.top && weaponCenterY <= bossRect.bottom) {
+                    useWeapon();
+                } else {
+                    // 回到原位
+                    weaponCard.style.position = '';
+                    weaponCard.style.left = '';
+                    weaponCard.style.top = '';
+                    weaponCard.style.transform = '';
+                }
+            }
+        }
+
+        // 使用武器
+        function useWeapon() {
+            if (!gameState.weapon || gameState.gameEnded) return;
+
+            const damage = gameState.weapon.damage[0];
+            gameState.bossHP = Math.max(0, gameState.bossHP - damage);
+            gameState.rage = 0;
+
+            // 隐藏武器卡牌
+            document.getElementById('weaponCard').style.display = 'none';
+
+            // 特殊效果
+            if (gameState.weapon.type === 'tiffany') {
+                gameState.isStunned = true;
+                document.getElementById('stunStars').style.display = 'flex';
+
+                // 2秒后解除眩晕
+                setTimeout(() => {
+                    gameState.isStunned = false;
+                    document.getElementById('stunStars').style.display = 'none';
+                }, 2000);
+            }
+
+            // 震动效果
+            const boss = document.getElementById('bossCharacter');
+            boss.classList.add('shake');
+            setTimeout(() => boss.classList.remove('shake'), 200);
+
+            // 更新表情
+            updateBossMood();
+
+            // 检查是否胜利
+            if (gameState.bossHP <= 0) {
+                endGame(true);
+                return;
+            }
+
+            gameState.weapon = null;
+            updateUI();
+        }
+
+        // 结束游戏
+        function endGame(victory) {
+            gameState.gameEnded = true;
+            gameState.victory = victory;
+
+            // 停止计时器
+            if (gameState.timerInterval) {
+                clearInterval(gameState.timerInterval);
+            }
+
+            // 隐藏武器卡牌
+            document.getElementById('weaponCard').style.display = 'none';
+
+            // 显示结果界面
+            const resultScreen = document.getElementById('resultScreen');
+            const resultTitle = document.getElementById('resultTitle');
+            const resultMessage = document.getElementById('resultMessage');
+
+            if (victory) {
+                resultTitle.textContent = '🎉 胜利！';
+                resultTitle.className = 'result-title victory';
+                resultMessage.textContent = `成功让${gameState.bossName}服输了！`;
+                gameState.bossMood = 'beg';
+            } else {
+                resultTitle.textContent = '⏰ 时间到！';
+                resultTitle.className = 'result-title defeat';
+                resultMessage.textContent = `${gameState.bossName}还很嚣张... 剩余血量: ${gameState.bossHP}`;
+            }
+
+            updateMood();
+            resultScreen.style.display = 'flex';
+        }
+
+        // 重新开始游戏
+        function restartGame() {
+            document.getElementById('resultScreen').style.display = 'none';
+            document.getElementById('setupScreen').style.display = 'flex';
+
+            // 重置UI
+            document.getElementById('gameUI').style.display = 'none';
+            document.getElementById('bossArea').style.display = 'none';
+            document.getElementById('rageUI').style.display = 'none';
+            document.getElementById('weaponCard').style.display = 'none';
+            document.getElementById('stunStars').style.display = 'none';
+        }
+
+        // 初始化
+        window.onload = function() {
+            selectGender('male');
+        };
+    </script>
+</body>
+</html>
