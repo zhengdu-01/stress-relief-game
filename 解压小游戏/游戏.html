@@ -266,7 +266,7 @@
         /* 领导角色 */
         .boss-area {
             position: absolute;
-            top: 42%;
+            top: 25%;
             left: 50%;
             transform: translateX(-50%);
             z-index: 5;
@@ -276,11 +276,10 @@
             position: relative;
             cursor: pointer;
             transition: transform 0.1s;
-            transform: scale(1.5);
         }
 
         .boss-character:active {
-            transform: scale(1.4);
+            transform: scale(0.95);
         }
 
         .boss-character.shake {
@@ -288,14 +287,14 @@
         }
 
         @keyframes shake {
-            0%, 100% { transform: scale(1.5) translateX(0); }
-            25% { transform: scale(1.5) translateX(-12px); }
-            75% { transform: scale(1.5) translateX(12px); }
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
         .boss-body {
-            width: 140px;
-            height: 120px;
+            width: 120px;
+            height: 100px;
             background: #2C3E50;
             border-radius: 8px;
             position: relative;
@@ -305,29 +304,29 @@
             position: absolute;
             bottom: 0;
             width: 100%;
-            height: 70px;
+            height: 60px;
             background: #34495E;
             border-radius: 0 0 8px 8px;
         }
 
         .tie {
             position: absolute;
-            top: 12px;
+            top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 16px;
-            height: 50px;
+            width: 12px;
+            height: 40px;
             background: #C0392B;
-            border-radius: 3px;
+            border-radius: 2px;
         }
 
         .head {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             background: #FDEBD0;
-            border-radius: 10px;
+            border-radius: 8px;
             position: absolute;
-            top: -70px;
+            top: -60px;
             left: 50%;
             transform: translateX(-50%);
             overflow: visible;
@@ -335,68 +334,68 @@
 
         .hair {
             position: absolute;
-            top: -8px;
+            top: -5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 105px;
-            height: 32px;
+            width: 85px;
+            height: 25px;
             background: #2C1810;
-            border-radius: 10px 10px 0 0;
+            border-radius: 8px 8px 0 0;
         }
 
         .female-hair {
             position: absolute;
-            top: -12px;
+            top: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 115px;
-            height: 42px;
+            width: 90px;
+            height: 35px;
             background: #3D2314;
-            border-radius: 15px 15px 0 0;
+            border-radius: 12px 12px 0 0;
         }
 
         .female-hair::before,
         .female-hair::after {
             content: '';
             position: absolute;
-            bottom: -38px;
-            width: 18px;
-            height: 42px;
+            bottom: -30px;
+            width: 15px;
+            height: 35px;
             background: #3D2314;
-            border-radius: 10px;
+            border-radius: 8px;
         }
 
-        .female-hair::before { left: 6px; }
-        .female-hair::after { right: 6px; }
+        .female-hair::before { left: 5px; }
+        .female-hair::after { right: 5px; }
 
         .glasses {
             position: absolute;
-            top: 34px;
+            top: 28px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 10px;
+            gap: 8px;
         }
 
         .lens {
-            width: 28px;
-            height: 22px;
-            border: 4px solid #2C3E50;
-            border-radius: 5px;
+            width: 22px;
+            height: 18px;
+            border: 3px solid #2C3E50;
+            border-radius: 4px;
         }
 
         .eyes {
             position: absolute;
-            top: 38px;
+            top: 30px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 24px;
+            gap: 20px;
         }
 
         .eye {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
             background: #2C3E50;
             border-radius: 50%;
             transition: all 0.3s;
@@ -412,61 +411,41 @@
             height: 6px;
         }
 
-        .eye.closed {
-            width: 10px;
-            height: 3px;
-            border-radius: 2px;
-        }
-
         .mouth {
             position: absolute;
-            bottom: 22px;
+            bottom: 18px;
             left: 50%;
             transform: translateX(-50%);
-            width: 32px;
-            height: 16px;
-            border: 4px solid #2C3E50;
+            width: 25px;
+            height: 12px;
+            border: 3px solid #2C3E50;
             border-top: none;
-            border-radius: 0 0 15px 15px;
+            border-radius: 0 0 12px 12px;
             transition: all 0.3s;
         }
 
         .mouth.angry {
-            border: 4px solid #2C3E50;
+            border: 3px solid #2C3E50;
             border-bottom: none;
-            border-radius: 15px 15px 0 0;
-            bottom: 20px;
+            border-radius: 12px 12px 0 0;
+            bottom: 15px;
         }
 
         .mouth.sad {
-            width: 24px;
-            height: 10px;
-            border: 4px solid #2C3E50;
+            width: 18px;
+            height: 8px;
+            border: 3px solid #2C3E50;
             border-bottom: none;
-            border-radius: 15px 15px 0 0;
-            bottom: 20px;
+            border-radius: 12px 12px 0 0;
+            bottom: 15px;
         }
 
         .mouth.beg {
-            width: 40px;
-            height: 20px;
+            width: 30px;
+            height: 15px;
             background: #2C3E50;
             border: none;
             border-radius: 50%;
-        }
-
-        .mouth.vomit {
-            width: 28px;
-            height: 28px;
-            background: none;
-            border: 4px solid #7CB342;
-            border-radius: 50%;
-            animation: vomit 0.5s ease-in-out infinite;
-        }
-
-        @keyframes vomit {
-            0%, 100% { transform: translateX(-50%) scale(1); }
-            50% { transform: translateX(-50%) scale(1.3); }
         }
 
         /* 眩晕效果 */
@@ -492,57 +471,31 @@
             to { transform: rotate(360deg); }
         }
 
-        /* 晕倒效果 */
-        .faint-effect {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%) rotate(90deg);
-            animation: faintFall 0.5s ease-out forwards;
-        }
-
-        @keyframes faintFall {
-            0% { transform: translateX(-50%) rotate(0deg); opacity: 1; }
-            100% { transform: translateX(-50%) rotate(90deg); opacity: 0.7; }
-        }
-
-        /* 吐血效果 */
-        .blood-effect {
-            position: absolute;
-            font-size: 20px;
-            animation: bloodSplash 0.5s ease-out forwards;
-        }
-
-        @keyframes bloodSplash {
-            0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); }
-            100% { opacity: 0; transform: translate(-50%, -80%) scale(1.5); }
-        }
-
         /* 怒气槽 */
         .rage-ui {
             position: absolute;
-            bottom: 60px;
+            bottom: 80px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 10;
             background: rgba(255, 255, 255, 0.95);
-            padding: 10px 20px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             text-align: center;
         }
 
         .rage-label {
-            font-size: 12px;
+            font-size: 14px;
             color: #666;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .rage-bar {
-            width: 180px;
-            height: 14px;
+            width: 200px;
+            height: 20px;
             background: #E0E0E0;
-            border-radius: 7px;
+            border-radius: 10px;
             overflow: hidden;
         }
 
@@ -566,20 +519,17 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             cursor: grab;
             touch-action: none;
-            animation: cardAppear 0.5s ease-out;
+            animation: cardAppear 0.3s ease-out;
         }
 
         @keyframes cardAppear {
-            0% {
+            from {
                 opacity: 0;
-                transform: translateX(-50%) translateY(-50px) scale(0.5) rotate(-10deg);
+                transform: translateX(-50%) translateY(-20px) scale(0.8);
             }
-            50% {
-                transform: translateX(-50%) translateY(10px) scale(1.1) rotate(5deg);
-            }
-            100% {
+            to {
                 opacity: 1;
-                transform: translateX(-50%) translateY(0) scale(1) rotate(0deg);
+                transform: translateX(-50%) translateY(0) scale(1);
             }
         }
 
@@ -591,12 +541,6 @@
             font-size: 48px;
             text-align: center;
             margin-bottom: 8px;
-            animation: iconBounce 0.5s ease-in-out infinite;
-        }
-
-        @keyframes iconBounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
         }
 
         .weapon-name {
@@ -616,12 +560,7 @@
 
         .weapon-rarity.common { background: #E8E8E8; color: #666; }
         .weapon-rarity.special { background: #3498DB; color: white; }
-        .weapon-rarity.legendary { background: #F39C12; color: white; animation: legendaryGlow 1s ease-in-out infinite; }
-
-        @keyframes legendaryGlow {
-            0%, 100% { box-shadow: 0 0 5px #F39C12; }
-            50% { box-shadow: 0 0 20px #F39C12, 0 0 30px #F1C40F; }
-        }
+        .weapon-rarity.legendary { background: #F39C12; color: white; }
 
         .weapon-damage {
             font-size: 12px;
@@ -650,105 +589,13 @@
             }
         }
 
-        /* 菜叶散开效果 */
-        .vegetable-scatter {
-            position: fixed;
-            font-size: 30px;
-            pointer-events: none;
-            z-index: 100;
-        }
-
-        .vegetable-piece {
-            animation: scatterVegetable 0.8s ease-out forwards;
-        }
-
-        @keyframes scatterVegetable {
-            0% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(var(--x-offset), var(--y-offset)) scale(0.5) rotate(var(--rotation));
-            }
-        }
-
-        /* 呕吐效果 */
-        .vomit-effect {
-            position: absolute;
-            font-size: 30px;
-            animation: vomitFly 0.6s ease-out forwards;
-            z-index: 20;
-        }
-
-        @keyframes vomitFly {
-            0% {
-                opacity: 1;
-                transform: translate(-50%, 0) rotate(0deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-30px, 50px) rotate(30deg);
-            }
-        }
-
-        /* 臭鸡蛋效果 */
-        .egg-splash {
-            position: fixed;
-            font-size: 40px;
-            pointer-events: none;
-            z-index: 100;
-            animation: eggBreak 0.4s ease-out forwards;
-        }
-
-        @keyframes eggBreak {
-            0% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
-            }
-            50% {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1.2) rotate(10deg);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(1.5) rotate(20deg);
-            }
-        }
-
-        /* 菜刀特效 */
-        .knife-slash {
-            position: fixed;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, transparent, #7F8C8D, transparent);
-            pointer-events: none;
-            z-index: 100;
-            animation: knifeSlash 0.3s ease-out forwards;
-        }
-
-        @keyframes knifeSlash {
-            0% {
-                opacity: 1;
-                transform: translateX(-50%) rotate(-45deg) scaleX(0);
-            }
-            50% {
-                opacity: 1;
-                transform: translateX(-50%) rotate(-45deg) scaleX(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateX(-50%) rotate(-45deg) scaleX(1.2);
-            }
-        }
-
         /* 开始界面 */
         .setup-screen {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: 50;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.7);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -761,79 +608,13 @@
             text-align: center;
             max-width: 90%;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            animation: panelAppear 0.3s ease-out;
-        }
-
-        @keyframes panelAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
 
         .setup-title {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
-            color: #E74C3C;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .welcome-text {
-            font-size: 18px;
-            color: #8B4513;
-            margin-bottom: 15px;
-            font-weight: bold;
-            padding: 10px;
-            background: linear-gradient(to right, #FFE4B5, #FFDAB9);
-            border-radius: 8px;
-            border: 2px solid #DEB887;
-        }
-
-        .company-banner {
-            position: absolute;
-            top: 5px;
-            right: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            z-index: 10;
-        }
-
-        /* 背景墙上的公司标识 */
-        .company-wall-logo {
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-            color: white;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-size: 20px;
-            font-weight: bold;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-            z-index: 3;
-            border: 4px solid #fff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: logoGlow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes logoGlow {
-            from {
-                box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
-            }
-            to {
-                box-shadow: 0 8px 35px rgba(231, 76, 60, 0.7), 0 0 50px rgba(231, 76, 60, 0.3);
-            }
+            color: #2C3E50;
+            margin-bottom: 20px;
         }
 
         .gender-select {
@@ -890,54 +671,6 @@
             box-shadow: 0 2px 0 #96281B;
         }
 
-        /* 游戏说明 */
-        .instructions-panel {
-            background: #FFF8DC;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .instructions-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #8B4513;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .instructions-list {
-            font-size: 13px;
-            color: #333;
-            line-height: 1.8;
-        }
-
-        .instructions-list li {
-            margin-bottom: 8px;
-        }
-
-        .weapon-intro {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed #D2B48C;
-        }
-
-        .weapon-intro-title {
-            font-size: 14px;
-            font-weight: bold;
-            color: #8B4513;
-            margin-bottom: 10px;
-        }
-
-        .weapon-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            font-size: 12px;
-        }
-
         /* 结果界面 */
         .result-screen {
             position: absolute;
@@ -967,12 +700,6 @@
 
         .result-title.victory {
             color: #27AE60;
-            animation: victoryBounce 0.5s ease-in-out infinite;
-        }
-
-        @keyframes victoryBounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
         }
 
         .result-title.defeat {
@@ -1014,7 +741,7 @@
             margin-top: 10px;
         }
 
-        /* 表情文字 */
+        /* 老板名称 */
         .mood-text {
             font-size: 12px;
             color: #E74C3C;
@@ -1030,7 +757,6 @@
             <div class="wall"></div>
             <div class="window"></div>
             <div class="certificate">优秀领导</div>
-            <div class="company-wall-logo">🏢 BGY服务公司</div>
             <div class="desk"></div>
             <div class="cabinet">
                 <div class="drawer"></div>
@@ -1104,40 +830,17 @@
         <!-- 武器卡牌 -->
         <div class="weapon-card" id="weaponCard" style="display: none;"></div>
 
-        <!-- 特效层 -->
-        <div id="effectsLayer"></div>
-
         <!-- 开始界面 -->
         <div class="setup-screen" id="setupScreen">
             <div class="setup-panel">
-                <div class="company-banner">🏢 BGY服务公司</div>
                 <div class="setup-title">🎮 解压小游戏</div>
-                <div class="welcome-text">👋 群友们欢迎来打！</div>
-                
-                <!-- 游戏说明 -->
-                <div class="instructions-panel">
-                    <div class="instructions-title">📖 游戏说明</div>
-                    <ul class="instructions-list">
-                        <li>👆 <strong>普通攻击</strong>: 点击领导头像造成伤害，积累怒气值</li>
-                        <li>🎯 <strong>必杀技</strong>: 怒气满时出现武器卡牌，拖拽到领导身上释放</li>
-                        <li>⏱️ <strong>限时挑战</strong>: 60秒内打空领导血量即可获胜</li>
-                    </ul>
-                    <div class="weapon-intro">
-                        <div class="weapon-intro-title">⚔️ 武器效果</div>
-                        <div class="weapon-item">🥬 <strong>烂菜叶</strong> - 让领导呕吐</div>
-                        <div class="weapon-item">🥚 <strong>臭鸡蛋</strong> - 砸脸特效</div>
-                        <div class="weapon-item">🔪 <strong>菜刀</strong> - 造成吐血</div>
-                        <div class="weapon-item">💎 <strong>Tiffany</strong> - 让领导晕倒</div>
-                    </div>
-                </div>
-
                 <div class="gender-select">
                     <button class="gender-btn active" data-gender="male" onclick="selectGender('male')">👨 男领导</button>
                     <button class="gender-btn" data-gender="female" onclick="selectGender('female')">👩 女领导</button>
                 </div>
                 <input type="text" class="name-input" id="bossNameInput" placeholder="输入领导名字" value="张总">
                 <button class="start-btn" onclick="startGame()">开始游戏</button>
-                <div class="hint">提示：狂戳领导可以快速积累怒气！</div>
+                <div class="hint">点击领导进行攻击，怒气满时拖拽武器卡牌释放必杀技！</div>
             </div>
         </div>
 
@@ -1166,7 +869,6 @@
             victory: false,
             bossMood: 'arrogant',
             isStunned: false,
-            isFainted: false,
             timerInterval: null,
             weapon: null,
             isDragging: false,
@@ -1175,10 +877,10 @@
 
         // 武器数据
         const weapons = [
-            { type: 'rottenVegetable', name: '烂菜叶', icon: '🥬', damage: [10, 15], rarity: 'common', effect: 'vomit' },
-            { type: 'stinkyEgg', name: '臭鸡蛋', icon: '🥚', damage: [10, 15], rarity: 'common', effect: 'egg' },
-            { type: 'kitchenKnife', name: '菜刀', icon: '🔪', damage: [30, 30], rarity: 'special', effect: 'blood' },
-            { type: 'tiffany', name: 'Tiffany饰品', icon: '💎', damage: [50, 50], rarity: 'legendary', effect: 'faint' }
+            { type: 'rottenVegetable', name: '烂菜叶', icon: '🥬', damage: [10, 15], rarity: 'common' },
+            { type: 'stinkyEgg', name: '臭鸡蛋', icon: '🥚', damage: [10, 15], rarity: 'common' },
+            { type: 'kitchenKnife', name: '菜刀', icon: '🔪', damage: [30, 30], rarity: 'special' },
+            { type: 'tiffany', name: 'Tiffany饰品', icon: '💎', damage: [50, 50], rarity: 'legendary' }
         ];
 
         // 选择性别
@@ -1191,6 +893,7 @@
                 }
             });
 
+            // 更新头发样式
             const hair = document.getElementById('hair');
             if (gameState.isMale) {
                 hair.className = 'hair';
@@ -1200,6 +903,7 @@
                 hair.innerHTML = '';
             }
 
+            // 更新领带
             const tie = document.getElementById('tie');
             tie.style.display = gameState.isMale ? 'block' : 'none';
         }
@@ -1211,6 +915,7 @@
                 gameState.bossName = inputName;
             }
 
+            // 初始化游戏状态
             gameState.bossHP = gameState.maxHP;
             gameState.rage = 0;
             gameState.timeRemaining = 60;
@@ -1219,17 +924,21 @@
             gameState.victory = false;
             gameState.bossMood = 'arrogant';
             gameState.isStunned = false;
-            gameState.isFainted = false;
 
+            // 更新UI
             document.getElementById('bossName').textContent = gameState.bossName;
             updateUI();
 
+            // 隐藏开始界面，显示游戏界面
             document.getElementById('setupScreen').style.display = 'none';
             document.getElementById('gameUI').style.display = 'flex';
             document.getElementById('bossArea').style.display = 'block';
             document.getElementById('rageUI').style.display = 'block';
 
+            // 开始计时
             startTimer();
+
+            // 绑定攻击事件
             bindAttackEvents();
         }
 
@@ -1249,17 +958,21 @@
 
         // 更新UI
         function updateUI() {
+            // 计时器
             const timerEl = document.getElementById('timer');
             timerEl.textContent = gameState.timeRemaining + 's';
             timerEl.classList.toggle('warning', gameState.timeRemaining <= 10);
 
+            // 血量
             const hpPercent = (gameState.bossHP / gameState.maxHP) * 100;
             document.getElementById('hpFill').style.width = hpPercent + '%';
             document.getElementById('hpText').textContent = gameState.bossHP + '/' + gameState.maxHP;
 
+            // 怒气
             const ragePercent = (gameState.rage / gameState.maxRage) * 100;
             document.getElementById('rageFill').style.width = ragePercent + '%';
 
+            // 表情
             document.getElementById('moodText').textContent = getMoodText();
             updateMood();
         }
@@ -1271,7 +984,6 @@
                 case 'angry': return '愤怒';
                 case 'sad': return '委屈';
                 case 'beg': return '求饶';
-                case 'fainted': return '晕倒';
                 default: return '傲慢';
             }
         }
@@ -1281,23 +993,11 @@
             const leftEye = document.getElementById('leftEye');
             const rightEye = document.getElementById('rightEye');
             const mouth = document.getElementById('mouth');
-            const head = document.getElementById('head');
 
+            // 重置样式
             leftEye.className = 'eye';
             rightEye.className = 'eye';
             mouth.className = 'mouth';
-            head.className = 'head';
-
-            if (gameState.isFainted) {
-                leftEye.classList.add('closed');
-                rightEye.classList.add('closed');
-                mouth.classList.add('beg');
-                head.classList.add('faint-effect');
-                document.getElementById('stunStars').style.display = 'flex';
-                return;
-            }
-
-            document.getElementById('stunStars').style.display = 'none';
 
             switch (gameState.bossMood) {
                 case 'angry':
@@ -1319,6 +1019,8 @@
         // 绑定攻击事件
         function bindAttackEvents() {
             const boss = document.getElementById('bossCharacter');
+
+            // 点击攻击
             boss.addEventListener('click', handleNormalAttack);
             boss.addEventListener('touchend', function(e) {
                 e.preventDefault();
@@ -1334,19 +1036,24 @@
             gameState.bossHP = Math.max(0, gameState.bossHP - damage);
             gameState.rage = Math.min(gameState.maxRage, gameState.rage + 10);
 
-            showHitEffect(e, '💥');
+            // 显示击中效果
+            showHitEffect(e);
 
+            // 震动效果
             const boss = document.getElementById('bossCharacter');
             boss.classList.add('shake');
             setTimeout(() => boss.classList.remove('shake'), 200);
 
+            // 更新表情
             updateBossMood();
 
+            // 检查是否胜利
             if (gameState.bossHP <= 0) {
                 endGame(true);
                 return;
             }
 
+            // 检查是否生成武器卡牌
             if (gameState.rage >= gameState.maxRage) {
                 spawnWeaponCard();
             }
@@ -1355,23 +1062,22 @@
         }
 
         // 显示击中效果
-        function showHitEffect(e, emoji) {
+        function showHitEffect(e) {
             const hit = document.createElement('div');
             hit.className = 'hit-effect';
-            hit.textContent = emoji;
+            hit.textContent = '💥';
 
             const rect = e.target.getBoundingClientRect();
             hit.style.left = (rect.left + rect.width / 2) + 'px';
             hit.style.top = (rect.top + rect.height / 2) + 'px';
 
             document.body.appendChild(hit);
+
             setTimeout(() => hit.remove(), 300);
         }
 
         // 更新领导表情
         function updateBossMood() {
-            if (gameState.isFainted) return;
-
             const hpPercent = gameState.bossHP / gameState.maxHP;
 
             if (hpPercent > 0.75) {
@@ -1387,6 +1093,7 @@
 
         // 生成武器卡牌
         function spawnWeaponCard() {
+            // 随机选择武器
             const randomIndex = Math.floor(Math.random() * weapons.length);
             gameState.weapon = weapons[randomIndex];
 
@@ -1400,9 +1107,10 @@
 
             weaponCard.style.display = 'block';
             weaponCard.style.animation = 'none';
-            weaponCard.offsetHeight;
-            weaponCard.style.animation = 'cardAppear 0.5s ease-out';
+            weaponCard.offsetHeight; // 触发重排
+            weaponCard.style.animation = 'cardAppear 0.3s ease-out';
 
+            // 绑定拖拽事件
             bindDragEvents();
         }
 
@@ -1424,10 +1132,12 @@
             let isDragging = false;
             let startX, startY, initialX, initialY;
 
+            // 鼠标事件
             weaponCard.addEventListener('mousedown', startDrag);
             document.addEventListener('mousemove', drag);
             document.addEventListener('mouseup', endDrag);
 
+            // 触摸事件
             weaponCard.addEventListener('touchstart', startDrag, { passive: false });
             document.addEventListener('touchmove', drag, { passive: false });
             document.addEventListener('touchend', endDrag);
@@ -1473,7 +1183,6 @@
                 weaponCard.style.left = (initialX + deltaX) + 'px';
                 weaponCard.style.top = (initialY + deltaY) + 'px';
                 weaponCard.style.transform = 'none';
-                weaponCard.style.zIndex = '100';
             }
 
             function endDrag(e) {
@@ -1482,21 +1191,23 @@
                 isDragging = false;
                 weaponCard.style.cursor = 'grab';
 
+                // 检查是否拖到领导身上
                 const weaponRect = weaponCard.getBoundingClientRect();
                 const bossRect = boss.getBoundingClientRect();
 
                 const weaponCenterX = weaponRect.left + weaponRect.width / 2;
                 const weaponCenterY = weaponRect.top + weaponRect.height / 2;
 
+                // 检查是否在boss范围内
                 if (weaponCenterX >= bossRect.left && weaponCenterX <= bossRect.right &&
                     weaponCenterY >= bossRect.top && weaponCenterY <= bossRect.bottom) {
                     useWeapon();
                 } else {
+                    // 回到原位
                     weaponCard.style.position = '';
                     weaponCard.style.left = '';
                     weaponCard.style.top = '';
                     weaponCard.style.transform = '';
-                    weaponCard.style.zIndex = '20';
                 }
             }
         }
@@ -1509,18 +1220,30 @@
             gameState.bossHP = Math.max(0, gameState.bossHP - damage);
             gameState.rage = 0;
 
+            // 隐藏武器卡牌
             document.getElementById('weaponCard').style.display = 'none';
-            document.getElementById('weaponCard').style.zIndex = '20';
 
-            // 根据武器类型显示特效
-            showWeaponEffect(gameState.weapon);
+            // 特殊效果
+            if (gameState.weapon.type === 'tiffany') {
+                gameState.isStunned = true;
+                document.getElementById('stunStars').style.display = 'flex';
 
+                // 2秒后解除眩晕
+                setTimeout(() => {
+                    gameState.isStunned = false;
+                    document.getElementById('stunStars').style.display = 'none';
+                }, 2000);
+            }
+
+            // 震动效果
             const boss = document.getElementById('bossCharacter');
             boss.classList.add('shake');
-            setTimeout(() => boss.classList.remove('shake'), 300);
+            setTimeout(() => boss.classList.remove('shake'), 200);
 
+            // 更新表情
             updateBossMood();
 
+            // 检查是否胜利
             if (gameState.bossHP <= 0) {
                 endGame(true);
                 return;
@@ -1530,165 +1253,20 @@
             updateUI();
         }
 
-        // 显示武器特效
-        function showWeaponEffect(weapon) {
-            switch (weapon.effect) {
-                case 'vomit':
-                    showVomitEffect();
-                    showVegetableScatter();
-                    break;
-                case 'egg':
-                    showEggEffect();
-                    break;
-                case 'blood':
-                    showBloodEffect();
-                    showKnifeSlash();
-                    break;
-                case 'faint':
-                    showFaintEffect();
-                    break;
-            }
-        }
-
-        // 菜叶散开效果
-        function showVegetableScatter() {
-            const effectsLayer = document.getElementById('effectsLayer');
-            const bossRect = document.getElementById('bossCharacter').getBoundingClientRect();
-            const centerX = bossRect.left + bossRect.width / 2;
-            const centerY = bossRect.top + bossRect.height / 2;
-
-            for (let i = 0; i < 6; i++) {
-                const piece = document.createElement('div');
-                piece.className = 'vegetable-scatter vegetable-piece';
-                piece.textContent = '🥬';
-                
-                const angle = (i * 60) * Math.PI / 180;
-                const distance = 80 + Math.random() * 60;
-                
-                piece.style.setProperty('--x-offset', (Math.cos(angle) * distance) + 'px');
-                piece.style.setProperty('--y-offset', (Math.sin(angle) * distance) + 'px');
-                piece.style.setProperty('--rotation', (Math.random() * 360) + 'deg');
-                piece.style.left = centerX + 'px';
-                piece.style.top = centerY + 'px';
-                
-                effectsLayer.appendChild(piece);
-                
-                setTimeout(() => piece.remove(), 800);
-            }
-        }
-
-        // 呕吐效果
-        function showVomitEffect() {
-            const head = document.getElementById('head');
-            const mouth = document.getElementById('mouth');
-            
-            mouth.classList.add('vomit');
-            
-            // 创建呕吐物
-            for (let i = 0; i < 3; i++) {
-                setTimeout(() => {
-                    const vomit = document.createElement('div');
-                    vomit.className = 'vomit-effect';
-                    vomit.textContent = '💚';
-                    vomit.style.left = '50%';
-                    vomit.style.bottom = '20px';
-                    head.appendChild(vomit);
-                    
-                    setTimeout(() => vomit.remove(), 600);
-                }, i * 150);
-            }
-            
-            setTimeout(() => {
-                mouth.classList.remove('vomit');
-            }, 1000);
-        }
-
-        // 臭鸡蛋效果
-        function showEggEffect() {
-            const effectsLayer = document.getElementById('effectsLayer');
-            const bossRect = document.getElementById('bossCharacter').getBoundingClientRect();
-            const centerX = bossRect.left + bossRect.width / 2;
-            const centerY = bossRect.top + bossRect.height / 2;
-
-            const egg = document.createElement('div');
-            egg.className = 'egg-splash';
-            egg.textContent = '💩';
-            egg.style.left = centerX + 'px';
-            egg.style.top = centerY + 'px';
-
-            effectsLayer.appendChild(egg);
-            setTimeout(() => egg.remove(), 400);
-        }
-
-        // 吐血效果
-        function showBloodEffect() {
-            const effectsLayer = document.getElementById('effectsLayer');
-            const head = document.getElementById('head');
-            const headRect = head.getBoundingClientRect();
-            
-            // 创建多个血滴
-            for (let i = 0; i < 5; i++) {
-                const blood = document.createElement('div');
-                blood.className = 'blood-effect';
-                blood.textContent = '🩸';
-                blood.style.left = (headRect.left + 30 + i * 10) + 'px';
-                blood.style.top = (headRect.top + 30) + 'px';
-                
-                effectsLayer.appendChild(blood);
-                setTimeout(() => blood.remove(), 500);
-            }
-            
-            // 嘴部变红
-            const mouth = document.getElementById('mouth');
-            mouth.style.backgroundColor = '#E74C3C';
-            setTimeout(() => {
-                mouth.style.backgroundColor = '';
-            }, 500);
-        }
-
-        // 菜刀斩击效果
-        function showKnifeSlash() {
-            const effectsLayer = document.getElementById('effectsLayer');
-            const bossRect = document.getElementById('bossCharacter').getBoundingClientRect();
-            const centerX = bossRect.left + bossRect.width / 2;
-            const centerY = bossRect.top + bossRect.height / 2;
-
-            const slash = document.createElement('div');
-            slash.className = 'knife-slash';
-            slash.style.left = centerX + 'px';
-            slash.style.top = centerY + 'px';
-
-            effectsLayer.appendChild(slash);
-            setTimeout(() => slash.remove(), 300);
-        }
-
-        // 晕倒效果
-        function showFaintEffect() {
-            gameState.isFainted = true;
-            gameState.isStunned = true;
-
-            document.getElementById('stunStars').style.display = 'flex';
-
-            // 2秒后恢复
-            setTimeout(() => {
-                gameState.isFainted = false;
-                gameState.isStunned = false;
-                document.getElementById('stunStars').style.display = 'none';
-                updateMood();
-            }, 2000);
-        }
-
         // 结束游戏
         function endGame(victory) {
             gameState.gameEnded = true;
             gameState.victory = victory;
 
+            // 停止计时器
             if (gameState.timerInterval) {
                 clearInterval(gameState.timerInterval);
             }
 
+            // 隐藏武器卡牌
             document.getElementById('weaponCard').style.display = 'none';
 
+            // 显示结果界面
             const resultScreen = document.getElementById('resultScreen');
             const resultTitle = document.getElementById('resultTitle');
             const resultMessage = document.getElementById('resultMessage');
@@ -1713,17 +1291,12 @@
             document.getElementById('resultScreen').style.display = 'none';
             document.getElementById('setupScreen').style.display = 'flex';
 
+            // 重置UI
             document.getElementById('gameUI').style.display = 'none';
             document.getElementById('bossArea').style.display = 'none';
             document.getElementById('rageUI').style.display = 'none';
             document.getElementById('weaponCard').style.display = 'none';
             document.getElementById('stunStars').style.display = 'none';
-
-            // 重置特效层
-            document.getElementById('effectsLayer').innerHTML = '';
-
-            // 重置头部样式
-            document.getElementById('head').className = 'head';
         }
 
         // 初始化
